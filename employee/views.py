@@ -1,7 +1,8 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.template import loader
 from .models import Employee
+from django.urls import reverse
 
 def index(request):
     template = loader.get_template('index.html')
@@ -10,3 +11,19 @@ def index(request):
         "myEmployees": myEmployees,
     }
     return HttpResponse(template.render(context,request))
+
+def create(request):
+    template = loader.get_template('createPage.html')
+    return HttpResponse(template.render({},request))
+
+def createEmployee(request):
+    name = request.POST['name']
+    title = request.POST['title']
+    emp = Employee(name=name, title=title)
+    emp.save()
+    return HttpResponseRedirect(reverse("index"))
+
+def delete(request, id):
+    emp = Employee.objects.get(id=id)
+    emp.delete()
+    return HttpResponseRedirect(reverse("index"))
