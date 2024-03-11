@@ -27,3 +27,18 @@ def delete(request, id):
     emp = Employee.objects.get(id=id)
     emp.delete()
     return HttpResponseRedirect(reverse("index"))
+
+def update(request, id):
+    template = loader.get_template('updatePage.html')
+    emp = Employee.objects.get(id=id)
+    context = {
+        "emp": emp,
+    }
+    return HttpResponse(template.render(context,request))
+
+def updateEmployee(request, id):
+    emp = Employee.objects.get(id=id)
+    emp.name = request.POST['name']
+    emp.title = request.POST['title']
+    emp.save()
+    return HttpResponseRedirect(reverse("index"))

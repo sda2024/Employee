@@ -1,0 +1,7 @@
+<h2>update Employee</h2>
+<form action="updateEmployee/{{emp.id}}" method="post">
+    {% csrf_token %}
+Name:<input name="name" value="{{emp.name}}">
+Title:<input name="title" value="{{emp.title}}">
+<input type="submit" value="Update">
+</form>

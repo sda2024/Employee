@@ -18,18 +18,23 @@
   </div>
 
   <div class="row mb-2">
-    <div class="col-md-6">
     {% for emp in myEmployees %}
+    <div class="col-md-3">
       <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
         <div class="col p-4 d-flex flex-column position-static">
           <strong class="d-inline-block mb-2 text-primary-emphasis">World</strong>
           <h3 class="mb-0">{{emp.name}}</h3>
           <div class="mb-1 text-body-secondary">{{emp.title}}</div>
           <a href="{% url 'delete' id=emp.id %}" type="button" class="btn btn-sm btn-outline-secondary">Delete</a>
+          <a href="{% url 'update' id=emp.id %}" type="button" class="btn btn-sm btn-outline-secondary">Update</a>
+        
         </div>
       </div>
-    {% endfor %}
     </div>
+    {% if forloop.counter|divisibleby:4 and not forloop.last %}
+     </div><div class="row mb-2">
+    {% endif %}
+    {% endfor %}
   </div>
 </main>
 </body></html>
